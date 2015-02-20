@@ -3,7 +3,7 @@ require "httparty"
 
 module OngairRuby
   ONGAIR_URL_V1 = "http://#{ENV['subdomain']}.ongair.im/api/v1/base"
-  ONGAIR_URL_V2 = "http://localhost:3000/api/v2"
+  ONGAIR_URL_V2 = "http://#{ENV['subdomain']}.ongair.im/api/v2"
 
   class ClientV1
   	def initialize token

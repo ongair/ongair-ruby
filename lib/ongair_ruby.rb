@@ -53,7 +53,7 @@ module OngairRuby
   	# end
 
   	def create_contact name, phone_number
-  		HTTParty.post("#{ONGAIR_URL_V2}/create_contact", body: {token: @token, contact: {phone_number: phone_number, name: name}})
+  		HTTParty.post("#{ONGAIR_URL_V2}/contacts", body: {token: @token, contact: {name: name, phone_number: phone_number}})
   	end
 
   	def contacts
@@ -61,7 +61,7 @@ module OngairRuby
   	end
 
   	def create_group name, group_type, jid
-  		HTTParty.post("#{ONGAIR_URL_V2}/groups", body: {token: @token, group: {name: "#{name}"}, name: "#{group_type}"}, name: "#{jid}"}})
+  		HTTParty.post("#{ONGAIR_URL_V2}/groups", body: {token: @token, group: {name: name, group_type: group_type, jid: jid}})
   	end
 
   	def groups

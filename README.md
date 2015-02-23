@@ -15,6 +15,8 @@ And then execute:
 Or install it yourself as:
 
     $ gem install ongair_ruby
+    
+Get the Ongair API key by signing up here: http://app.ongair.im
 
 ## Usage
 

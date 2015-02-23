@@ -85,7 +85,7 @@ module OngairRuby
   	end
 
   	def remove_list_member list_id, contact_id
-  		HTTParty.post("#{ONGAIR_URL_V2}/lists/#{list_id}/remove_contact", body: {token: @token, phone_number: phone_number})
+  		HTTParty.post("#{ONGAIR_URL_V2}/lists/#{list_id}/remove_contact", body: {token: @token, contact_id: contact_id})
   	end
 
   	def send_broadcast list_id, message

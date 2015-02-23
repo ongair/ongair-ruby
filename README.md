@@ -1,6 +1,6 @@
 # OngairRuby
 
-TODO: Write a gem description
+Ruby gem for using Ongair to to interact with WhatsApp; send messages, send media, add contacts, create groups, create lists, send broadcasts and many more.
 
 ## Installation
 
@@ -18,7 +18,42 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+`
+client = OngairRuby::ClientV2.new("YOUR_ONGAIR_API_KEY")
+# Add a contact
+client.create_contact("Name of contact", "254711223344")
+
+# Send a message
+client.send_message("254711223344", "Hello")
+
+# List of contacts
+client.contacts
+
+# Create a WhatsApp group
+client.create_group("group_name", "group_type", "group_jid")
+
+# List of groups
+client.groups
+
+# Create a distribution list
+client.create_list("list_name", "list_description")
+
+# List of distribution lists
+client.lists
+
+# Add contact to a distribution list
+client.add_list_member(list_id, contact_id)
+
+# List of distribution list members
+client.list_members(list_id)
+
+# remove contact from a distribution list
+client.remove_list_member(list_id, contact_id)
+
+# send broadcasts to a distribution list
+client.send_broadcast(list_id, "Hello everyone")
+
+`
 
 ## Contributing
 

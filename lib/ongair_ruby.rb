@@ -80,6 +80,10 @@ module OngairRuby
   	# 	HTTParty.post("#{ONGAIR_URL_V2}/groups/#{group_id}/send_message", body: {token: @token, phone_number: phone_number, text: text})
   	# end
 
+    def create_list name, description
+      HTTParty.post("#{ONGAIR_URL_V2}/lists", body: {token: @token, name: name, description: description})
+    end
+
   	def add_list_member list_id, contact_id
   		HTTParty.post("#{ONGAIR_URL_V2}/lists/#{list_id}/add_contact", body: {token: @token, contact_id: contact_id})
   	end

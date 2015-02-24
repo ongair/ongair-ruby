@@ -78,6 +78,12 @@ describe OngairRuby::ClientV2 do
               :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
          to_return(:status => 200, :body => {created: true, id: 1}.to_json, :headers => {})
 
+    stub_request(:get, "http://dev.ongair.im/api/v2/groups").
+         with(:body => "token=7c96876b64f3bf9b46bb39b89a9cwo20",
+              :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
+         to_return(:status => 200, :body => [ { id: 285, name: "#ShikaMita", contacts: [ { id: 5829 }, { id: 5833 } ] }, 
+          { id: 285, name: "Group A", contacts: [ { id: 392 }, { id: 478 } ] } ].to_json, :headers => {})
+
     stub_request(:post, "http://dev.ongair.im/api/v2/lists").
          with(:body => "token=7c96876b64f3bf9b46bb39b89a9cwo20&name=list_name&description=list_description",
               :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
@@ -138,6 +144,14 @@ describe OngairRuby::ClientV2 do
       OngairRuby::ClientV2.new("7c96876b64f3bf9b46bb39b89a9cwo20")
     }
     it { expect(subject.create_group("Grp1", "Internal", "grpjid")).to eql({created: true, id: 1}.to_json)}
+  end
+
+  context 'List of groups' do
+    subject {
+      OngairRuby::ClientV2.new("7c96876b64f3bf9b46bb39b89a9cwo20")
+    }
+    it { expect(subject.groups).to eql([ { id: 285, name: "#ShikaMita", contacts: [ { id: 5829 }, { id: 5833 } ] }, 
+          { id: 285, name: "Group A", contacts: [ { id: 392 }, { id: 478 } ] } ].to_json)}
   end
 
   context 'Create a list' do

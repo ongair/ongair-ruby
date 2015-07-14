@@ -26,7 +26,11 @@ Get the Ongair API key by signing up here: http://app.ongair.im
         
         # Send a message
         client.send_message("254711223344", "Hello")
+
+        # Send an image
+        client.send_image("254722123456", "http://domain.com/image.jpg")
         
+## Coming soon
         # List of contacts
         client.contacts
         

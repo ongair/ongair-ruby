@@ -6,7 +6,7 @@ module OngairRuby
   # ONGAIR_URL_V2 = "http://#{ENV['subdomain']}.ongair.im/api/v2"
 
   class ClientV1
-  	def initialize token, base_url='https://ongair.im/'
+  	def initialize token, base_url='https://ongair.im'
   		@token = token
       @base_url = base_url
   	end

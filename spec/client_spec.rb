@@ -28,11 +28,11 @@ describe OngairRuby::ClientV1 do
 
     ruby_headers = {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}
     
-    stub_request(:post, "https://ongair.im//api/v1/base/send").
+    stub_request(:post, "https://ongair.im/api/v1/base/send").
       with(:body => hash_including({ phone_number: '254722010208', text: 'Hi' }), headers: ruby_headers ).
         to_return(:status => 200, body: { sent: true, id:2935 }.to_json, :headers => {})
 
-    stub_request(:post, "https://ongair.im//api/v1/base/send_image").
+    stub_request(:post, "https://ongair.im/api/v1/base/send_image").
       with(:body => "token=7c96876b64f3bf9b46bb39b89a9cwo20&phone_number=2547222010208&image=http%3A%2F%2Fgoogle.com%2Fimage.jpg&thread=true", headers: ruby_headers ).
       to_return(:status => 200, body: { sent: true, id:2940 }.to_json, :headers => {})
   end

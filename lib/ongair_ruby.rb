@@ -11,7 +11,7 @@ module OngairRuby
       @base_url = base_url
   	end
 
-  	def send_message(phone_number, message, thread=true)
+  	def send_text_message(phone_number, message, thread=true)
   		response = HTTParty.post("#{@base_url}/api/v1/base/send", body: {token: @token, phone_number: phone_number, text: message, thread: thread })
   	end
 

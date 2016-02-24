@@ -42,7 +42,7 @@ describe OngairRuby::ClientV1 do
       OngairRuby::ClientV1.new("7c96876b64f3bf9b46bb39b89a9cwo20")
     }
     
-    it { expect(subject.send_message("254722010208", "Hi")).to eql({sent:true, id:2935}.to_json) }
+    it { expect(subject.send_text_message("254722010208", "Hi")).to eql({sent:true, id:2935}.to_json) }
 
     it { expect(subject.send_image('2547222010208', 'http://google.com/image.jpg')).to eql({sent: true, id: 2940}.to_json ) }
   end

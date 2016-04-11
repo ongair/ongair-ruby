@@ -27,13 +27,13 @@ describe OngairRuby::ClientV1 do
     #     .to_return(status: 200, body: { sent: true, id:2935 }.to_json )
 
     ruby_headers = {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}
-    
+
     stub_request(:post, "https://ongair.im/api/v1/base/send").
       with(:body => hash_including({ phone_number: '254722010208', text: 'Hi' }), headers: ruby_headers ).
         to_return(:status => 200, body: { sent: true, id:2935 }.to_json, :headers => {})
 
     stub_request(:post, "https://ongair.im/api/v1/base/send_image").
-      with(:body => "token=7c96876b64f3bf9b46bb39b89a9cwo20&phone_number=2547222010208&image=http%3A%2F%2Fgoogle.com%2Fimage.jpg&thread=true", headers: ruby_headers ).
+      with(:body => "token=7c96876b64f3bf9b46bb39b89a9cwo20&phone_number=2547222010208&image=http%3A%2F%2Fgoogle.com%2Fimage.jpg&content_type=image%2Fjpg&thread=true", headers: ruby_headers ).
       to_return(:status => 200, body: { sent: true, id:2940 }.to_json, :headers => {})
   end
 
@@ -41,7 +41,7 @@ describe OngairRuby::ClientV1 do
     subject {
       OngairRuby::ClientV1.new("7c96876b64f3bf9b46bb39b89a9cwo20")
     }
-    
+
     it { expect(subject.send_text_message("254722010208", "Hi")).to eql({sent:true, id:2935}.to_json) }
 
     it { expect(subject.send_image('2547222010208', 'http://google.com/image.jpg')).to eql({sent: true, id: 2940}.to_json ) }
@@ -88,7 +88,7 @@ end
   #   stub_request(:get, "http://dev.ongair.im/api/v2/contacts").
   #        with(:body => "token=7c96876b64f3bf9b46bb39b89a9cwo20",
   #             :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
-  #        to_return(:status => 200, :body => [ { id: 1, phone_number: "254722123456", name: "XYZ" }, 
+  #        to_return(:status => 200, :body => [ { id: 1, phone_number: "254722123456", name: "XYZ" },
   #         { id: 2, phone_number: "254712345678", name: "LMN" } ].to_json, :headers => {})
 
   #   stub_request(:post, "http://dev.ongair.im/api/v2/groups").
@@ -99,7 +99,7 @@ end
   #   stub_request(:get, "http://dev.ongair.im/api/v2/groups").
   #        with(:body => "token=7c96876b64f3bf9b46bb39b89a9cwo20",
   #             :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
-  #        to_return(:status => 200, :body => [ { id: 285, name: "#ShikaMita", contacts: [ { id: 5829 }, { id: 5833 } ] }, 
+  #        to_return(:status => 200, :body => [ { id: 285, name: "#ShikaMita", contacts: [ { id: 5829 }, { id: 5833 } ] },
   #         { id: 285, name: "Group A", contacts: [ { id: 392 }, { id: 478 } ] } ].to_json, :headers => {})
 
   #   stub_request(:post, "http://dev.ongair.im/api/v2/lists").
@@ -125,13 +125,13 @@ end
   #   stub_request(:get, "http://dev.ongair.im/api/v2/lists").
   #        with(:body => "token=7c96876b64f3bf9b46bb39b89a9cwo20",
   #             :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
-  #        to_return(:status => 200, :body => [ { id: 1, name: "XYZ" }, 
+  #        to_return(:status => 200, :body => [ { id: 1, name: "XYZ" },
   #         { id: 2, name: "LMN" } ].to_json, :headers => {})
 
   #   stub_request(:get, "http://dev.ongair.im/api/v2/lists/1/members").
   #        with(:body => "token=7c96876b64f3bf9b46bb39b89a9cwo20",
   #             :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
-  #        to_return(:status => 200, :body => { members: [ { id: 1, phone_number: "254722123456", name: "XYZ" }, 
+  #        to_return(:status => 200, :body => { members: [ { id: 1, phone_number: "254722123456", name: "XYZ" },
   #         { id: 2, phone_number: "254723123456", name: "LMN" } ] }.to_json, :headers => {})
   # end
 
@@ -153,7 +153,7 @@ end
   #   subject {
   #     OngairRuby::ClientV2.new("7c96876b64f3bf9b46bb39b89a9cwo20")
   #   }
-  #   it { expect(subject.contacts).to eql([ { id: 1, phone_number: "254722123456", name: "XYZ" }, 
+  #   it { expect(subject.contacts).to eql([ { id: 1, phone_number: "254722123456", name: "XYZ" },
   #     { id: 2, phone_number: "254712345678", name: "LMN" } ].to_json)}
   # end
 
@@ -168,7 +168,7 @@ end
   #   subject {
   #     OngairRuby::ClientV2.new("7c96876b64f3bf9b46bb39b89a9cwo20")
   #   }
-  #   it { expect(subject.groups).to eql([ { id: 285, name: "#ShikaMita", contacts: [ { id: 5829 }, { id: 5833 } ] }, 
+  #   it { expect(subject.groups).to eql([ { id: 285, name: "#ShikaMita", contacts: [ { id: 5829 }, { id: 5833 } ] },
   #         { id: 285, name: "Group A", contacts: [ { id: 392 }, { id: 478 } ] } ].to_json)}
   # end
 
@@ -204,7 +204,7 @@ end
   #   subject {
   #     OngairRuby::ClientV2.new("7c96876b64f3bf9b46bb39b89a9cwo20")
   #   }
-  #   it { expect(subject.lists).to eql([ { id: 1, name: "XYZ" }, 
+  #   it { expect(subject.lists).to eql([ { id: 1, name: "XYZ" },
   #     { id: 2 , name: "LMN"} ].to_json)}
   # end
 
@@ -212,7 +212,7 @@ end
   #   subject {
   #     OngairRuby::ClientV2.new("7c96876b64f3bf9b46bb39b89a9cwo20")
   #   }
-  #   it { expect(subject.list_members(1)).to eql({ members: [ { id: 1, phone_number: "254722123456", name: "XYZ" }, 
+  #   it { expect(subject.list_members(1)).to eql({ members: [ { id: 1, phone_number: "254722123456", name: "XYZ" },
   #         { id: 2, phone_number: "254723123456", name: "LMN" } ] }.to_json)}
   # end
 # end

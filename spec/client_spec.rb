@@ -33,7 +33,7 @@ describe OngairRuby::ClientV1 do
         to_return(:status => 200, body: { sent: true, id:2935 }.to_json, :headers => {})
 
     stub_request(:post, "https://ongair.im/api/v1/base/send_image").
-      with(:body => "token=7c96876b64f3bf9b46bb39b89a9cwo20&phone_number=2547222010208&image=http%3A%2F%2Fgoogle.com%2Fimage.jpg&content_type=image%2Fjpg&thread=true", headers: ruby_headers ).
+      with(:body => "token=7c96876b64f3bf9b46bb39b89a9cwo20&phone_number=2547222010208&image=http%3A%2F%2Fgoogle.com%2Fimage.jpg&name=image.jpg&content_type=image%2Fjpg&thread=true", headers: ruby_headers ).
       to_return(:status => 200, body: { sent: true, id:2940 }.to_json, :headers => {})
   end
 
@@ -44,7 +44,7 @@ describe OngairRuby::ClientV1 do
 
     it { expect(subject.send_text_message("254722010208", "Hi")).to eql({sent:true, id:2935}.to_json) }
 
-    it { expect(subject.send_image('2547222010208', 'http://google.com/image.jpg')).to eql({sent: true, id: 2940}.to_json ) }
+    it { expect(subject.send_image('2547222010208', 'http://google.com/image.jpg', 'image.jpg')).to eql({sent: true, id: 2940}.to_json ) }
   end
 
 

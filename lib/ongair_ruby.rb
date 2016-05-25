@@ -15,8 +15,8 @@ module OngairRuby
   		response = HTTParty.post("#{@base_url}/api/v1/base/send", body: {token: @token, phone_number: phone_number, text: message, thread: thread })
   	end
 
-    def send_image(phone_number, image_url, name, content_type='image/jpg', thread=true)
-      response = HTTParty.post("#{@base_url}/api/v1/base/send_image", body: {token: @token, phone_number: phone_number, image: image_url, name: name, content_type: content_type, thread: thread })
+    def send_image(phone_number, image_url, name, caption="", content_type='image/jpg', thread=true)
+      response = HTTParty.post("#{@base_url}/api/v1/base/send_image", body: {token: @token, phone_number: phone_number, image: image_url, name: name, caption: caption, content_type: content_type, thread: thread })
     end
 
   	# def close_conversation(phone_number)

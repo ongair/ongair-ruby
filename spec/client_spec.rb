@@ -33,8 +33,12 @@ describe OngairRuby::ClientV1 do
         to_return(:status => 200, body: { sent: true, id:2935 }.to_json, :headers => {})
 
     stub_request(:post, "https://ongair.im/api/v1/base/send_image").
-      with(:body => "token=7c96876b64f3bf9b46bb39b89a9cwo20&phone_number=2547222010208&image=http%3A%2F%2Fgoogle.com%2Fimage.jpg&name=image.jpg&caption=Caption&content_type=image%2Fjpg&thread=true", headers: ruby_headers ).
+      with(:body => "token=7c96876b64f3bf9b46bb39b89a9cwo20&phone_number=2547222010208&image=http%3A%2F%2Fgoogle.com%2Fimage.jpg&name=image.jpg&caption=Caption&content_type=image%2Fjpg&thread=true&external_id=", headers: ruby_headers ).
       to_return(:status => 200, body: { sent: true, id:2940 }.to_json, :headers => {})
+
+    stub_request(:post, "https://ongair.im/api/v1/base/send").
+      with(:body => "token=7c96876b64f3bf9b46bb39b89a9cwo20&phone_number=&text=Hi&thread=&external_id=1234567890", headers: ruby_headers).
+         to_return(:status => 200, :body => { sent: true, id:3000 }.to_json, :headers => {})
   end
 
   context 'Send message' do
@@ -47,6 +51,13 @@ describe OngairRuby::ClientV1 do
     it { expect(subject.send_image('2547222010208', 'http://google.com/image.jpg', 'image.jpg', "Caption")).to eql({sent: true, id: 2940}.to_json ) }
   end
 
+  context 'send message with external id' do
+    subject {
+      OngairRuby::ClientV1.new("7c96876b64f3bf9b46bb39b89a9cwo20")
+    }
+    it { expect(subject.send_text_message("", "Hi", nil, "1234567890")).to eql({sent:true, id:3000}.to_json) }
+
+  end
 
 
   # context 'Close a conversation' do

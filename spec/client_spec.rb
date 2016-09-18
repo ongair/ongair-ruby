@@ -39,6 +39,15 @@ describe OngairRuby::ClientV1 do
     stub_request(:post, "https://ongair.im/api/v1/base/send").
       with(:body => "token=7c96876b64f3bf9b46bb39b89a9cwo20&phone_number=&text=Hi&thread=&external_id=1234567890", headers: ruby_headers).
          to_return(:status => 200, :body => { sent: true, id:3000 }.to_json, :headers => {})
+
+    stub_request(:post, "https://ongair.im/api/v1/base/send_video").
+         with(:body => "token=7c96876b64f3bf9b46bb39b89a9cwo20&external_id=1234567890&video=https%3A%2F%2Fvideo.mp4&caption=&thread=true").
+         to_return(:status => 200, :body => { sent: true, id: 3001 }.to_json, :headers => {})
+
+    stub_request(:post, "https://ongair.im/api/v1/base/send_audio").
+      with(body: "token=7c96876b64f3bf9b46bb39b89a9cwo20&external_id=1234567890&audio=https%3A%2F%2Faudio.mp3&caption=&thread=true").
+      to_return(:status => 200, body: {sent: true, id: 3002}.to_json, headers: {})
+
   end
 
   context 'Send message' do
@@ -57,6 +66,20 @@ describe OngairRuby::ClientV1 do
     }
     it { expect(subject.send_text_message("", "Hi", nil, "1234567890")).to eql({sent:true, id:3000}.to_json) }
 
+  end
+
+  context 'Send video' do
+    subject {
+      OngairRuby::ClientV1.new("7c96876b64f3bf9b46bb39b89a9cwo20")
+    }
+    it { expect(subject.send_video("1234567890", "https://video.mp4", "")).to eql({sent:true, id:3001}.to_json) }
+  end
+
+  context 'Send audio' do
+    subject {
+      OngairRuby::ClientV1.new("7c96876b64f3bf9b46bb39b89a9cwo20")
+    }
+    it { expect(subject.send_audio("1234567890", "https://audio.mp3", "")).to eql({sent:true, id:3002}.to_json) }
   end
 
 

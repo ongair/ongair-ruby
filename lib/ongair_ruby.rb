@@ -11,12 +11,22 @@ module OngairRuby
       @base_url = base_url
   	end
 
-  	def send_text_message(phone_number, message, thread=true)
-  		response = HTTParty.post("#{@base_url}/api/v1/base/send", body: {token: @token, phone_number: phone_number, text: message, thread: thread })
+  	def send_text_message(phone_number, message, thread=true, external_id=nil)
+  		response = HTTParty.post("#{@base_url}/api/v1/base/send", body: {token: @token, phone_number: phone_number, text: message, thread: thread, external_id: external_id })
   	end
 
-    def send_image(phone_number, image_url, name, caption="", content_type='image/jpg', thread=true)
-      response = HTTParty.post("#{@base_url}/api/v1/base/send_image", body: {token: @token, phone_number: phone_number, image: image_url, name: name, caption: caption, content_type: content_type, thread: thread })
+    def send_image(phone_number, image_url, name, caption="", content_type='image/jpg', thread=true, external_id=nil)
+      response = HTTParty.post("#{@base_url}/api/v1/base/send_image", body: {token: @token, phone_number: phone_number, image: image_url, name: name, caption: caption, content_type: content_type, thread: thread, external_id: external_id })
+    end
+
+    def send_video(external_id, video_url, caption, thread=true)
+      payload = {token: @token, external_id: external_id, video: video_url, caption: caption, thread: thread}
+      response = HTTParty.post("#{@base_url}/api/v1/base/send_video", body: payload)
+    end
+
+    def send_audio(external_id, audio_url, caption, thread=true)
+      payload = {token: @token, external_id: external_id, audio: audio_url, caption: caption, thread: thread}
+      response = HTTParty.post("#{@base_url}/api/v1/base/send_audio", body: payload)
     end
 
   	# def close_conversation(phone_number)

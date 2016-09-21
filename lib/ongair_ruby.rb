@@ -20,13 +20,11 @@ module OngairRuby
     end
 
     def send_video(external_id, video_url, caption, thread=true)
-      payload = {token: @token, external_id: external_id, video: video_url, caption: caption, thread: thread}
-      response = HTTParty.post("#{@base_url}/api/v1/base/send_video", body: payload)
+      response = HTTParty.post("#{@base_url}/api/v1/base/send_video", body: {token: @token, external_id: external_id, video_url: video_url, caption: caption, thread: thread})
     end
 
     def send_audio(external_id, audio_url, caption, thread=true)
-      payload = {token: @token, external_id: external_id, audio: audio_url, caption: caption, thread: thread}
-      response = HTTParty.post("#{@base_url}/api/v1/base/send_audio", body: payload)
+      response = HTTParty.post("#{@base_url}/api/v1/base/send_audio", body: {token: @token, external_id: external_id, audio_url: audio_url, caption: caption, thread: thread})
     end
 
   	# def close_conversation(phone_number)

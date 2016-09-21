@@ -41,11 +41,11 @@ describe OngairRuby::ClientV1 do
          to_return(:status => 200, :body => { sent: true, id:3000 }.to_json, :headers => {})
 
     stub_request(:post, "https://ongair.im/api/v1/base/send_video").
-         with(:body => "token=7c96876b64f3bf9b46bb39b89a9cwo20&external_id=1234567890&video=https%3A%2F%2Fvideo.mp4&caption=&thread=true").
+         with(:body => "token=7c96876b64f3bf9b46bb39b89a9cwo20&external_id=1234567890&video_url=https%3A%2F%2Fvideo.mp4&caption=&thread=true").
          to_return(:status => 200, :body => { sent: true, id: 3001 }.to_json, :headers => {})
 
     stub_request(:post, "https://ongair.im/api/v1/base/send_audio").
-      with(body: "token=7c96876b64f3bf9b46bb39b89a9cwo20&external_id=1234567890&audio=https%3A%2F%2Faudio.mp3&caption=&thread=true").
+      with(body: "token=7c96876b64f3bf9b46bb39b89a9cwo20&external_id=1234567890&audio_url=https%3A%2F%2Faudio.mp3&caption=&thread=true").
       to_return(:status => 200, body: {sent: true, id: 3002}.to_json, headers: {})
 
   end

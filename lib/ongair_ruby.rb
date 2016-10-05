@@ -6,7 +6,7 @@ module OngairRuby
   # ONGAIR_URL_V2 = "http://#{ENV['subdomain']}.ongair.im/api/v2"
 
   class ClientV1
-  	def initialize token, base_url
+  	def initialize token, base_url='https://ongair.im'
   		@token = token
       @base_url = base_url
   	end
@@ -52,10 +52,19 @@ module OngairRuby
   	# end
   end
 
-  # class ClientV2
-  # 	def initialize token
-  # 		@token = token
-  # 	end
+  class ClientV2
+  	def initialize token, base_url='https://ongair.im'
+  		@token = token
+      @base_url = base_url
+  	end
+
+    def send_message(external_id, message, options=nil, thread=true)
+      HTTParty.post("#{@base_url}/api/v1/base/send", body: {token: @token, external_id: external_id, text: message, thread: thread, options: options })
+    end
+
+    def send_image(external_id, image_url, content_type, caption=nil, options=nil, thread=true)
+      HTTParty.post("#{@base_url}/api/v1/base/send_image", body: {token: @token, external_id: external_id, caption: caption, image: image_url, thread: thread, options: options })
+    end
 
   # 	def send_message(phone_number, message, thread=true)
   # 		HTTParty.post("#{ONGAIR_URL_V2}/messages/send_message", body: {token: @token, phone_number: phone_number, text: message, thread: thread })
@@ -116,5 +125,5 @@ module OngairRuby
   # 	def list_members list_id
   # 		HTTParty.get("#{ONGAIR_URL_V2}/lists/#{list_id}/members", body: {token: @token})
   # 	end
-  # end
+  end
 end

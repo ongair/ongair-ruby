@@ -22,7 +22,7 @@ describe OngairRuby::ClientV2 do
     end
 
     it 'Can send an image' do
-      stub = stub_request(:post, "https://ongair.im/api/v1/base/send_image")
+      stub = stub_request(:post, "#{OngairRuby::ONGAIR_URL}/api/v1/base/send_image")
         .with(
           body: "token=auth_token&external_id=1&caption=Hi&image=https%3A%2F%2Fimage.jpg&thread=true&options=1%2C2",
           headers: {
@@ -39,7 +39,7 @@ describe OngairRuby::ClientV2 do
 
     it 'can send a chain with options' do
 
-      stub = stub_request(:post, "https://ongair.im/api/v1/base/send_chain")         
+      stub = stub_request(:post, "#{OngairRuby::ONGAIR_URL}/api/v1/base/send_chain")         
         .to_return(status: 200, :body => {sent: true, id: 1}.to_json)
 
       response = subject.send_chain('1', [{ :text => "Hi"}, { :text => "You good?", :options => ["Yes", "No" ]}])

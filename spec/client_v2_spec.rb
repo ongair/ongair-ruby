@@ -36,5 +36,18 @@ describe OngairRuby::ClientV2 do
       expect(result['sent']).to be true
       expect(result['id']).to eql(1)
     end
+
+    it 'can send a chain with options' do
+
+      stub = stub_request(:post, "https://ongair.im/api/v1/base/send_chain")         
+        .to_return(status: 200, :body => {sent: true, id: 1}.to_json)
+
+      response = subject.send_chain('1', [{ :text => "Hi"}, { :text => "You good?", :options => ["Yes", "No" ]}])
+      result = JSON.parse(response.body)
+
+      expect(result['sent']).to be true
+      expect(result['id']).to eql(1)
+
+    end
   end
 end

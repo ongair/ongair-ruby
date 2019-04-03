@@ -28,30 +28,6 @@ module OngairRuby
     def send_audio(external_id, audio_url, caption, thread=true)
       response = HTTParty.post("#{@base_url}/api/v1/base/send_audio", body: {token: @token, external_id: external_id, audio_url: audio_url, caption: caption, thread: thread})
     end
-
-  	# def close_conversation(phone_number)
-  	# 	HTTParty.post("#{ONGAIR_URL_V1}/conversations/#{phone_number}/close", body: {token: @token, phone_number: phone_number })
-  	# end
-
-  	# def create_contact name, phone_number
-  	# 	HTTParty.post("#{ONGAIR_URL_V1}/create_contact", body: {token: @token, phone_number: phone_number, name: name})
-  	# end
-
-  	# # def create_group name
-  	# # 	HTTParty.post("#{ONGAIR_URL_V1}/create_group", body: {token: @token, name: name})
-  	# # end
-
-  	# def add_group_member group_id, phone_number
-  	# 	HTTParty.post("#{ONGAIR_URL_V1}/groups/#{group_id}/add_participant", body: {token: @token, phone_number: phone_number})
-  	# end
-
-  	# def remove_group_member group_id, phone_number
-  	# 	HTTParty.post("#{ONGAIR_URL_V1}/groups/#{group_id}/remove_participant", body: {token: @token, phone_number: phone_number})
-  	# end
-
-  	# def send_group_message phone_number, text
-  	# 	HTTParty.post("#{ONGAIR_URL_V1}/groups/#{group_id}/send_message", body: {token: @token, phone_number: phone_number, text: text})
-  	# end
   end
 
   class ClientV2
@@ -68,64 +44,14 @@ module OngairRuby
       HTTParty.post("#{@base_url}/api/v1/base/send_image", body: {token: @token, external_id: external_id, caption: caption, image: image_url, thread: thread, options: options })
     end
 
-  # 	def send_message(phone_number, message, thread=true)
-  # 		HTTParty.post("#{ONGAIR_URL_V2}/messages/send_message", body: {token: @token, phone_number: phone_number, text: message, thread: thread })
-  # 	end
-
-  # 	# def close_conversation(phone_number)
-  # 	# 	HTTParty.post("#{ONGAIR_URL_V2}/conversations/#{phone_number}/close", body: {token: @token, phone_number: phone_number })
-  # 	# end
-
-  # 	def create_contact name, phone_number
-  # 		HTTParty.post("#{ONGAIR_URL_V2}/contacts", body: {token: @token, contact: {name: name, phone_number: phone_number}})
-  # 	end
-
-  # 	def contacts
-  # 		HTTParty.get("#{ONGAIR_URL_V2}/contacts", body: {token: @token})
-  # 	end
-
-  # 	def create_group name, group_type, jid
-  # 		HTTParty.post("#{ONGAIR_URL_V2}/groups", body: {token: @token, group: {name: name, group_type: group_type, jid: jid}})
-  # 	end
-
-  # 	def groups
-  # 		HTTParty.get("#{ONGAIR_URL_V2}/groups", body: {token: @token})
-  # 	end
-
-  # 	# def add_group_member group_id, phone_number
-  # 	# 	HTTParty.post("#{ONGAIR_URL_V2}/groups/#{group_id}/add_participant", body: {token: @token, phone_number: phone_number})
-  # 	# end
-
-  # 	# def remove_group_member group_id, phone_number
-  # 	# 	HTTParty.post("#{ONGAIR_URL_V2}/groups/#{group_id}/remove_participant", body: {token: @token, phone_number: phone_number})
-  # 	# end
-
-  # 	# def send_group_message phone_number, text
-  # 	# 	HTTParty.post("#{ONGAIR_URL_V2}/groups/#{group_id}/send_message", body: {token: @token, phone_number: phone_number, text: text})
-  # 	# end
-
-  #   def create_list name, description
-  #     HTTParty.post("#{ONGAIR_URL_V2}/lists", body: {token: @token, name: name, description: description})
-  #   end
-
-  # 	def add_list_member list_id, contact_id
-  # 		HTTParty.post("#{ONGAIR_URL_V2}/lists/#{list_id}/add_contact", body: {token: @token, contact_id: contact_id})
-  # 	end
-
-  # 	def remove_list_member list_id, contact_id
-  # 		HTTParty.post("#{ONGAIR_URL_V2}/lists/#{list_id}/remove_contact", body: {token: @token, contact_id: contact_id})
-  # 	end
-
-  # 	def send_broadcast list_id, message
-  # 		HTTParty.post("#{ONGAIR_URL_V2}/lists/#{list_id}/send_broadcast", body: {token: @token, message: message})
-  # 	end
-
-  # 	def lists
-  # 		HTTParty.get("#{ONGAIR_URL_V2}/lists", body: {token: @token})
-  # 	end
-
-  # 	def list_members list_id
-  # 		HTTParty.get("#{ONGAIR_URL_V2}/lists/#{list_id}/members", body: {token: @token})
-  # 	end
+    ##
+    # Send a chain of messages including options
+    #
+    # @example
+    #
+    # messages=[{ text: 'Hi'}, { text: 'Question?', options: ["1,2"]} ]
+    def send_chain(external_id, messages, thread=true)
+      HTTParty.post("#{@base_url}/api/v1/base/send_chain", body: {token: @token, external_id: external_id, messages: messages, thread: thread })
+    end
   end
 end

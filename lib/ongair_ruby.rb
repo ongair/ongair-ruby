@@ -2,9 +2,6 @@ require "ongair_ruby/version"
 require "httparty"
 
 module OngairRuby
-  # ONGAIR_URL_V1 = "http://#{ENV['subdomain']}.ongair.im/api/v1/base"
-  # ONGAIR_URL_V2 = "http://#{ENV['subdomain']}.ongair.im/api/v2"
-
   ONGAIR_URL = 'https://ongair.im'
 
   class ClientV1
@@ -53,5 +50,15 @@ module OngairRuby
     def send_chain(external_id, messages, thread=true)
       HTTParty.post("#{@base_url}/api/v1/base/send_chain", body: {token: @token, external_id: external_id, messages: messages, thread: thread })
     end
+
+    def send_telephone_prompt(external_id, text, thread=true)
+      HTTParty.post("#{@base_url}/api/v1/base/send_telephone_prompt", body: {token: @token, external_id: external_id, text: text, thread: thread })
+    end
+
+    def send_location_prompt(external_id, text, thread=true)
+      HTTParty.post("#{@base_url}/api/v1/base/send_location_prompt", body: {token: @token, external_id: external_id, text: text, thread: thread })
+    end
+
+    
   end
 end

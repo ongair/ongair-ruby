@@ -6,8 +6,8 @@ require 'ongair_ruby/version'
 Gem::Specification.new do |spec|
   spec.name          = "ongair_ruby"
   spec.version       = OngairRuby::VERSION
-  spec.authors       = ["Muaad Abdirahman"]
-  spec.email         = ["muadh24@gmail.com"]
+  spec.authors       = ["Ongair Limited"]
+  spec.email         = ["hello@ongair.im"]
   spec.summary       = %q{Ruby gem for Ongair.}
   spec.description   = %q{Lets you use the Ongair API to interact with Messaging services like WhatsApp, WeChat and so on.}
   spec.homepage      = ""
@@ -18,12 +18,8 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  # spec.add_development_dependency "bundler", "~> 2.0"
-  # spec.add_development_dependency "rake"
+  spec.add_dependency "httparty"
   spec.add_development_dependency "rspec"
   spec.add_development_dependency "webmock"
-  # spec.add_development_dependency "pry"
-  # spec.add_development_dependency "pry-nav"
-  spec.add_dependency "httparty"
   spec.add_development_dependency "simplecov"
 end

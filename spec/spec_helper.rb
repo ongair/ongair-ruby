@@ -1,7 +1,6 @@
 require 'webmock/rspec'
 require 'rspec'
 require 'ongair_ruby'
-require 'pry'
 
 WebMock.disable_net_connect!
 RSpec.configure do |config|
